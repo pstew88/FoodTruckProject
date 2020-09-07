@@ -54,21 +54,15 @@ public class FoodTruckProject {
 				System.out.println("");
 				listAllTruckInfo();
 				System.out.println("");
-				menu();
-				choice = kb.nextInt();
 
 			} else if (choice == 2) {
 				System.out.println("");
 				averageRating();
 				System.out.println("");
-				menu();
-				choice = kb.nextInt();
 			} else if (choice == 3) {
 				System.out.println("");
 				listHighestRated();
 				System.out.println("");
-				menu();
-				choice = kb.nextInt();
 			} else if (choice == 4) {
 				System.out.println("");
 				System.out.println("*****************");
@@ -81,9 +75,9 @@ public class FoodTruckProject {
 				System.out.println("**************");
 				System.out.println("Invalid Option");
 				System.out.println("**************");
-				menu();
-				choice = kb.nextInt();
 			}
+			menu();
+			break;
 		}
 	}
 
@@ -91,18 +85,23 @@ public class FoodTruckProject {
 		double highestRating = trucks[0].getRating();
 
 		for (int i = 0; i < trucks.length; i++) {
-			if (trucks[i].getRating() > highestRating) {
-				highestRating = trucks[i].getRating();
+			if (trucks[i] != null) {
+				if (trucks[i].getRating() > highestRating) {
+
+					highestRating = trucks[i].getRating();
+				}
 			}
 		}
 
 		int ties = 0;
 		for (int i = 0; i < trucks.length; i++) {
-			if (highestRating == trucks[i].getRating()) {
-				ties++;
+			if (trucks[i] != null) {
+
+				if (highestRating == trucks[i].getRating()) {
+					ties++;
+				}
 			}
 		}
-
 		if (ties > 1) {
 			System.out.println(ties + " food trucks tie for the highest-rated:");
 		} else {
@@ -110,8 +109,11 @@ public class FoodTruckProject {
 		}
 
 		for (int i = 0; i < trucks.length; i++) {
-			if (highestRating == trucks[i].getRating()) {
-				System.out.println(trucks[i].toString());
+			if (trucks[i] != null) {
+
+				if (highestRating == trucks[i].getRating()) {
+					System.out.println(trucks[i].toString());
+				}
 			}
 		}
 	}

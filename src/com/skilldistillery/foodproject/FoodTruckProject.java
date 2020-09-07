@@ -14,18 +14,17 @@ public class FoodTruckProject {
 	private void run() {
 
 		Scanner kb = new Scanner(System.in);
-//for loop to determine if # of truck >=5
-//if not add new truck array to and ask for info
 		int maxTruck = 5;
 		int numberOfTrucks = 0;
 		trucks = new FoodTruck[maxTruck];
 		for (int i = 0; i < trucks.length; i++) {
 
+			System.out.println("------------------------------------------------------------");
 			System.out.println("Please enter details on the foodtruck you would like to rate");
+			System.out.println("");
 			System.out.println("Truck name: ");
 			String name = kb.next();
 
-			// should break if truck is named quit but doesnt
 			if (name.equals("quit")) {
 				break;
 			}
@@ -37,17 +36,12 @@ public class FoodTruckProject {
 			System.out.println("");
 			System.out.println("From a scale of 1 to 5, 5 being the highest, what rating would you give this truck?");
 			double rating = kb.nextDouble();
-
-			// test info to call
+			System.out.println("");
 
 			FoodTruck truck = new FoodTruck(name, food, rating);
-//	truck.displayTruck();
 			trucks[i] = truck;
-			// should get average of food trucks by taking total of ratings / by total
-			// number of truck ID
 		}
 		menu();
-
 	}
 
 	private void menuChoice() {
@@ -71,7 +65,7 @@ public class FoodTruckProject {
 				choice = kb.nextInt();
 			} else if (choice == 3) {
 				System.out.println("");
-				System.out.println("(∩_∩)"); // Highest Rated
+				listHighestRated();
 				System.out.println("");
 				menu();
 				choice = kb.nextInt();
@@ -81,8 +75,8 @@ public class FoodTruckProject {
 				System.out.println("Have a Great Day!");
 				System.out.println("*****************");
 				repeat = false;
-
 				break;
+
 			} else {
 				System.out.println("**************");
 				System.out.println("Invalid Option");
@@ -91,32 +85,65 @@ public class FoodTruckProject {
 				choice = kb.nextInt();
 			}
 		}
+	}
 
-		// TODO Auto-generated method stub
+	private void listHighestRated() {
+		double highestRating = trucks[0].getRating();
 
+		for (int i = 0; i < trucks.length; i++) {
+			if (trucks[i].getRating() > highestRating) {
+				highestRating = trucks[i].getRating();
+			}
+		}
+
+		int ties = 0;
+		for (int i = 0; i < trucks.length; i++) {
+			if (highestRating == trucks[i].getRating()) {
+				ties++;
+			}
+		}
+
+		if (ties > 1) {
+			System.out.println(ties + " food trucks tie for the highest-rated:");
+		} else {
+			System.out.println("The highest-rated food truck is:");
+		}
+
+		for (int i = 0; i < trucks.length; i++) {
+			if (highestRating == trucks[i].getRating()) {
+				System.out.println(trucks[i].toString());
+			}
+		}
 	}
 
 	public void listAllTruckInfo() {
 		for (int i = 0; i < trucks.length; i++) {
-			System.out.println(trucks[i].toString());
+			if (trucks[i] != null) {
+
+				System.out.println(trucks[i].toString());
+			}
 		}
 	}
 
 	private void averageRating() {
 		double average = 0.0;
+		double total = 0.0;
+		int numberOfTrucks = 0;
 		for (int i = 0; i < trucks.length; i++) {
-			double total = 0.0;
-			trucks[i].getRating();
-			total = total + trucks[i].getRating();
-			average = total / trucks.length;
+			if (trucks[i] != null) {
+				numberOfTrucks++;
+
+				total = total + trucks[i].getRating();
+			}
 		}
+		average = total / numberOfTrucks;
+		System.out.println("");
 		System.out.println("The average rating of all food trucks is " + average);
 	}
 
 	private void menu() {
-		// TODO Auto-generated method stub
 		System.out.println("");
-		System.out.println("  ************************************");
+		System.out.println("  ***********************************");
 		System.out.println("1 ********* List Food Trucks ********");
 		System.out.println("2 **** See Average of all Trucks ****");
 		System.out.println("3 **** See Highest Rated  Trucks ****");

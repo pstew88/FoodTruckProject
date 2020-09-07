@@ -1,7 +1,7 @@
 package com.skilldistillery.foodproject;
 
 public class FoodTruck {
-	private static int id=0;
+	private static int id=1;
 	private String name;
 	private String food;
 	private double rating;
@@ -54,7 +54,7 @@ public class FoodTruck {
 
 	@Override
 	public String toString() {
-		return "TruckId= " + truckId + "name= " + name + ", food= " + food + ", rating= " + rating;
+		return "Truck Number = " + truckId + " Truck Name = " + name + ", Food Sold = " + food + ", Rating = " + rating;
 	}
 
 	public void displayTruck() {
